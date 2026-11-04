@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-dex-red: #dc0a2d;
+  --color-dex-red-dark: #8c041a;
+  --color-dex-red-light: #ff4d6d;
+
+  --color-screen-main: #f2f2f2;
+  --color-screen-lcd: #51ae5f;
+  --color-screen-terminal: #232323;
+  --color-screen-blue: #1e5b8e;
+  --color-screen-blue-dark: #103b66;
+  --color-screen-cyan: #aad7b0;
+  --color-screen-terminal: #111b24;
+
+  --color-btn-blue: #28aafa;
+  --color-btn-dark: #232323;
+  --color-btn-yellow: #ffcc00;
+
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-lcd: 'VT323', monospace;
+}
+
+html,
+body {
+  @apply h-full overflow-hidden bg-gray-900 font-sans text-white antialiased;
+  background: radial-gradient(circle at center, #374151 0%, #111827 100%);
+}
+
+.bg-retro-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-border {
+  border: 1px solid rgba(0, 220, 220, 0.5);
+  box-shadow:
+    0 0 6px rgba(0, 220, 220, 0.3),
+    inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn {
+  transition: all 0.1s;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  filter: brightness(1.5) drop-shadow(0 0 6px rgba(0, 220, 220, 0.8));
+  transform: scale(1.15);
+}
+
+.nav-btn:active {
+  transform: scale(0.92);
+}
+
+.blink {
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.radar-ring {
+  animation: radarPulse 3s ease-in-out infinite;
+}
+
+@keyframes radarPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.03);
+  }
+}

@@ -1,9 +1,17 @@
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { type HTMLMotionProps, motion } from 'framer-motion';
+import { type CSSProperties, useEffect, useState } from 'react';
 import { usePokedexStore } from './store/usePokedexStore';
 import { useTypewriter } from './hooks/useTypewriter';
 import { useKeyboardBindings } from './hooks/useKeyboardBindings';
 import { manageBGM, playCry } from './utils/audio';
+
+interface LoadingSpriteProps extends HTMLMotionProps<'img'> {
+  src: string;
+  alt: string;
+  className?: string;
+  filterClass?: string;
+  style?: CSSProperties;
+}
 
 const formatId = (id: number) => id.toString().padStart(3, '0');
 
@@ -23,7 +31,7 @@ const LoadingSprite = ({
   filterClass,
   style,
   ...props
-}: any) => {
+}: LoadingSpriteProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [prevSrc, setPrevSrc] = useState(src);
 
@@ -40,20 +48,18 @@ const LoadingSprite = ({
       {!isLoaded && (
         <div className="pointer-events-none absolute z-20 h-[3cqw] w-[3cqw] animate-spin rounded-full border-[2px] border-[#11365f]/30 border-t-[#11365f]"></div>
       )}
-
       <img
         src={src}
         alt={`${alt} shadow`}
         className={`pointer-events-none absolute inset-0 z-0 h-full w-full scale-[1.1] object-contain transition-opacity duration-300 [image-rendering:pixelated] ${!isLoaded ? 'opacity-0' : 'opacity-100'}`}
         style={{ filter: 'url(#silhouette-tint)' }}
       />
-
-      <img
+      <motion.img
         {...props}
         src={src}
         alt={alt}
         onLoad={() => setIsLoaded(true)}
-        className={`relative z-10 h-full w-full object-contain transition-opacity duration-300 [image-rendering:pixelated] ${filterClass} ${!isLoaded ? 'opacity-0' : 'opacity-100'}`}
+        className={`relative z-10 h-full w-full object-contain transition-opacity duration-300 [image-rendering:pixelated] ${filterClass || ''} ${!isLoaded ? 'opacity-0' : 'opacity-100'}`}
       />
     </div>
   );
@@ -99,9 +105,9 @@ export default function App() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [showTutorialIndicator, setShowTutorialIndicator] = useState(true);
 
-  useEffect(() => {
-    if (isOn) setShowTutorialIndicator(false);
-  }, [isOn]);
+  if (isOn && showTutorialIndicator) {
+    setShowTutorialIndicator(false);
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {

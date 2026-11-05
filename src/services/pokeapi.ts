@@ -80,7 +80,7 @@ const GET_ALL_POKEMON_QUERY = gql`
 
 const formatPokemon = (p: GraphQLPokemon): PokemonData => {
   const parsedTypes = Array.isArray(p.types)
-    ? p.types.map((t: any) =>
+    ? p.types.map((t: { name: string } | string) =>
         (typeof t === 'string' ? t : t.name || '').toUpperCase(),
       )
     : [];

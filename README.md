@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+# myPokedex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![myPokedex](https://github.com/user-attachments/assets/c21a7bc3-b0ad-4577-ad00-7c48282b71b7)
 
-Currently, two official plugins are available:
+**myPokedex** is a interactive web application designed to simulate a physical Pokedex. Built with **React, TypeScript, Zustand and GraphQL**.
+It includes an audio engine with a BGM, Pokemon cries and custom sounds for booting, browsing and pressing buttons.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Using the built-in buttons, **or your keyboard**, you can power it on, browse generations and Pokemon, search via the keypad, and view Pokemon statistics.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### **Turn it on and browse Pokemon:** *Fetches a generation of Pokemon instantly from the `@favware/graphql-pokemon` API, storing them locally fast browsing.*
+![Browse](https://github.com/user-attachments/assets/ae5488e2-073a-4f95-95ce-7d09a0219b8b)
 
-## Expanding the ESLint configuration
+#### **Adjust your size and volume preferences:** *A floating top bar allows you to adjust global volume and zoom settings, it also includes a overlaying user guide.*
+![Browse](https://github.com/user-attachments/assets/5d06043e-8c0e-469d-89db-994940ed9fc8)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Operation & Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This project is a **Pure Frontend SPA** application. All logic is handled in the browser.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Client
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The client was built with **React** and **Vite**.
 
+The main technologies used here are:
+
+**Zustand**: It dictates the power state, the view mode, and caches the GraphQL data blocks.
+
+**GraphQL-Request**: Used to query the external `@favware` API.
+
+**Tailwind**: Utilized in building and customizing the layout and some of its design logic.
+
+**Framer Motion**: Used for the spring animations of the Pokémon sprites and UI transitions.
+
+**Native Web Audio API**: Managed to prevent audio overlap and doubling during rapid user inputs.
+
+## How to Run
+
+This project requires **Node.js** and **NPM** installed.
+
+#### 1. Clone the project:
+```bash
+git clone https://github.com/paulo-ads/myPokedex.git
+cd myPokedex
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+#### 2. Install dependencies:
+```bash
+npm install
 ```
+
+#### 3. Start the Development Server:
+```bash
+npm run dev
+```
+
+#### 4. Access the Application:
+Open your browser and navigate to the URL provided by Vite (usually `http://localhost:5173`).
+
+## Disclaimer
+*This application is an unofficial, non-profit, open-source project created solely for educational purposes.* 
+
+*Pokemon, Pokemon character names, sprites, audio, and all related properties are trademarks and copyrights of **Nintendo**, **Game Freak**, **Creatures Inc.**, and **The Pokémon Company**.* 
